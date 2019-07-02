@@ -37,7 +37,10 @@ for(i in 1:length(list_tsv)) {
 
     pept <- fread(pept_filename, dec=",")
     pept[, numPept := length(EG.PrecursorId), by=(PG.ProteinAccessions)]
-    list_prot <- unique(pept[numPept > 2, ]$PG.ProteinAccessions)
+    
+    #after discussion, we decied to remove this filtering and keep all proteins for the downstream analysis.
+    #list_prot <- unique(pept[numPept > 2, ]$PG.ProteinAccessions)
+    list_prot <- unique(pept$PG.ProteinAccessions)
 
 
                                         #confident <- raw[which(raw$PG.ProteinAccessions %in% list_prot), ]

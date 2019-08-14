@@ -45,9 +45,16 @@ for(i in 1:length(list_tsv)) {
 
                                         #confident <- raw[which(raw$PG.ProteinAccessions %in% list_prot), ]
     confident <- raw[which(raw$Entry %in% list_prot), ]
-    confident[, log2fc := 0]
-    confident$log2fc <- log2(as.numeric(unlist(confident[, (dim(confident)[2]-1), with=F]))) - log2(as.numeric(unlist(confident[, (dim(confident)[2]-2), with=F])))
+    #confident[, log2fc := 0]
+    #confident$log2fc <- log2(as.numeric(unlist(confident[, (dim(confident)[2]-1), with=F]))) - log2(as.numeric(unlist(confident[, (dim(confident)[2]-2), with=F])))
 
+    confident[, median_reference := 0]
+    confident$median_reference <- apply(confident[, 4:18, with=F], 1, function(x) median(x, na.rm=T))
+
+    confident[, log2fc := 0]
+    confident$log2fc <- log2(as.numeric(unlist(confident[, (dim(confident)[2]-2), with=F]))) - log2(confident$median_reference)
+    
+    
     confident <- confident[which(!is.na(confident$log2fc)), ]
 
     write.table(confident, file=paste0(filename, "_preprocessed.tsv"), sep="\t", col.name=T, row.name=F, quote=F)

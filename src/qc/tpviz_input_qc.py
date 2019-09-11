@@ -2,6 +2,7 @@
 
 import pandas as pd
 import numpy as np
+from collections import Counter
 import argparse
 
 
@@ -39,7 +40,8 @@ def qc_input(intensity_matrix, ref_start, ref_end, sample_start, sample_end):
                          in Counter(intensity_matrix['PG.ProteinAccessions']).items()
                          if count > 1]
   if len(dup_protein_entries) > 0:
-    raise SystemExit("""Found duplicate entries for the following proteins:
+    raise SystemExit("""Input matrix QC failed!
+    Found duplicate entries for the following proteins:
     {}
     Please manually fix input file and re-run.""".format(dup_protein_entries))
 
@@ -48,14 +50,18 @@ def qc_input(intensity_matrix, ref_start, ref_end, sample_start, sample_end):
     try:
       columnData.astype(np.float64)
     except:
-      raise ValueError("Error reference column {} contain non-numeric value!\nPlease fix input matrix.".format(columnName))
+      raise ValueError("""Input matrix QC failed!
+    Reference column {} contains non-numeric value.
+    Please manually fix input matrix and re-run.""".format(columnName))
 
   sample_matrix = intensity_matrix.iloc[:, sample_start:sample_end]
   for (columnName, columnData) in sample_matrix.iteritems():
     try:
       columnData.astype(np.float64)
     except:
-      raise ValueError("Error sample column {} contain non-numeric value!\nPlease fix input matrix.".format(columnName))
+      raise ValueError("""Input matrix QC failed!
+    Sample column {} contains non-numeric value.
+    Please manually fix input matrix and re-run.""".format(columnName))
 
 
 def main():

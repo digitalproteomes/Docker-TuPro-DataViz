@@ -43,7 +43,7 @@ cosmic <- fread("/usr/local/data/Cancer_Census_all_072018_COSMIC.csv")
 if(my_sample_type=="Melanoma") {
   list_prot <- fread("/usr/local/data/Melanoma_marker_Anja_IDs.csv", header=T)
 } else if(my_sample_type=="OVCA") {
-  list_prot <- fread("/usr/local/data/OVCA_makrer_pre-selection_sgo.csv", header=T)
+  list_prot <- fread("/usr/local/data/OVCA_marker_pre-selection_sgo.csv", header=T)
 } else {
   cat("WARNING: unsupported sample type! Now set to Melanoma by default")
   list_prot <- fread("/usr/local/data/Melanoma_marker_Anja_IDs.csv", header=T)

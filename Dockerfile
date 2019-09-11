@@ -38,8 +38,6 @@ COPY data /usr/local/data
 RUN ln -s /usr/local/src/plot_proteo_fmi_table/plot_proteo_fmi_table.py /usr/local/bin \
     && ln -s /usr/local/src/plot_proteo_fmi_table/preprocessor2fmi.py /usr/local/bin \
     && ln -s /usr/local/src/plot_bar/plot_bar.r /usr/local/bin \
-    && ln -s /usr/local/src/plot_word_cloud/plot_word_cloud.r /usr/local/bin \
-    && ln -s /usr/local/src/preprocessor/preprocessor.r /usr/local/bin \
     && ln -s /usr/local/src/preprocessor/preprocessor.py /usr/local/bin \
     && ln -s /usr/local/src/qc/tpviz_input_qc.py /usr/local/bin \
     && ln -s /usr/local/src/plot_boxplot/plot_dia_boxplot.py /usr/local/bin

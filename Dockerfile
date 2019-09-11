@@ -25,8 +25,8 @@ RUN wget https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh \
 ENV PATH /home/user/anaconda3/bin:$PATH
 
 # Updating Anaconda packages
-RUN conda update anaconda \
-    && conda update --all
+#RUN conda update anaconda
+RUN conda update --all
 
 COPY requirements.txt /tmp/
 RUN while read requirement; do conda install --yes $requirement; done < /tmp/requirements.txt
@@ -39,4 +39,5 @@ RUN ln -s /usr/local/src/plot_proteo_fmi_table/plot_proteo_fmi_table.py /usr/loc
     && ln -s /usr/local/src/plot_proteo_fmi_table/preprocessor2fmi.py /usr/local/bin \
     && ln -s /usr/local/src/plot_bar/plot_bar.r /usr/local/bin \
     && ln -s /usr/local/src/plot_word_cloud/plot_word_cloud.r /usr/local/bin \
-    && ln -s /usr/local/src/preprocessor/preprocessor.r /usr/local/bin
+    && ln -s /usr/local/src/preprocessor/preprocessor.r /usr/local/bin \
+    && ln -s /usr/local/src/preprocessor/preprocessor.py /usr/local/bin

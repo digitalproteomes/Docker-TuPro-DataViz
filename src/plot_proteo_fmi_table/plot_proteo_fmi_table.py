@@ -5,6 +5,7 @@ import os
 import math
 import argparse
 import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 from matplotlib.patches import Patch
 import pandas as pd
 

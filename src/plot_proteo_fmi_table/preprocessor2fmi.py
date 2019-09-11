@@ -33,6 +33,7 @@ def assemble_fmi_df(infile, fmifile):
     
   # Load input data
   input_df = pd.read_csv(infile, sep='\t')
+
   # Only keep the first name for a gene, to mitigate non-uniqueness
   input_df['Gene'] = input_df.apply(lambda x: x['Gene'].split('|')[0], axis=1)
 

@@ -19,6 +19,10 @@ def get_arguments(parser):
                       help="The output tsv filename root.",
                       metavar="FILE",
                       required=True)
+  parser.add_argument("-p", "--peptidefile",
+                      help="""The input peptide tsv file.""",
+                      metavar="FILE",
+                      required=True)
   parser.add_argument("-g", "--uniprot2genefile",
                       help="""The mapping of Uniprot to Gene names. 
                       Required columns Entry (Uniprot Entry) and Gene (Gene name).""",
@@ -124,17 +128,43 @@ def calculate_log2fc(reference_matrix, sample_matrix, fake_nan=True):
     log2fc_df['log2fc'] = log2fc
   return reference_matrix.merge(log2fc_df, left_index=True, right_index=True)
 
+
+def get_protein_with_proteotypic_evidence(peptide_infile, intensity_matrix):
+  """Extracts a list of proteins with proteotypic evidence
+  """
+  peptide_matrix = pd.read_csv(peptide_infile, sep='\t')
+  unique_prot_count = peptide_matrix.groupby('EG.PrecursorId')['PG.ProteinAccessions'].nunique()
+  proteotypic_peptides =  unique_prot_count[unique_prot_count == 1]
+  peptide_matrix[peptide_matrix['EG.PrecursorId'].isin(proteotypic_peptides)]
+  proteotypic_proteins = set(peptide_matrix['PG.ProteinAccessions'])
+  intensity_matrix = intensity_matrix[intensity_matrix['PG.ProteinAccessions'].isin(proteotypic_proteins)]
+  return intensity_matrix
+  
   
 def main():
   """Main
   """
   # Get user parameters
   parser = argparse.ArgumentParser(description="""Preprocess spectronaut output 
-  table for TP-Viz processing.""")
+table for TP-Viz processing.
+  
+Creates 2 files:
+  - _cleaned.tsv:       same as input protein matrix, with:
+    - 'CONT' and 'iRT' entries removed.
+    - proteins with no proteotypic evidence removed (NOTE: protein ratio are not 
+      recalculated based on proteotypic peptides).
+  - _preprocessed.tsv:  starting from the cleaned matrix:
+    - sets PG.ProteinAccessions as Entry column
+    - adds a ref_median column (with the median of the reference intensities)
+    - adds a Gene column (if a protein cannot be mapped it is removed)
+    - adds a log2fc column with log2(ref_median/sample) (NOTE: currently, only 
+      one sample per matrix is considered.)
+  """)
   args = get_arguments(parser)
 
   infile = args.infile
   outfile_root = args.outfile
+  pepfile = args.peptidefile
   uniprot2genefile = args.uniprot2genefile
   ref_start = args.referencecols[0] - 1
   ref_end = args.referencecols[1] 
@@ -145,6 +175,7 @@ def main():
   intensity_matrix = pd.read_csv(infile, sep='\t')
   intensity_matrix = intensity_matrix[~(intensity_matrix['PG.ProteinAccessions'].str.contains('CONT') |
                                         (intensity_matrix['PG.ProteinAccessions'].str.contains('iRT')))]
+  intensity_matrix = get_protein_with_proteotypic_evidence(pepfile, intensity_matrix)
   intensity_matrix.to_csv(outfile_root + '_cleaned.tsv', sep='\t', index=False, na_rep='NaN')
   intensity_matrix.set_index('PG.ProteinAccessions', inplace=True)
   intensity_matrix = map_genes(intensity_matrix, uniprot2genefile)

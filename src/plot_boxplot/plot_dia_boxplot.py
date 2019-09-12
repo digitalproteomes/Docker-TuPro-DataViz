@@ -93,8 +93,7 @@ def plot_boxplot(reference_matrix, sample_matrix, outfile_root):
       g.lines[j].set_color('black')
 
   # Add scatterpoints for the sample values
-#  g = sns.scatterplot(x='x', y='y', data=sample_matrix, color='red', label='sample')
-  g = sns.scatterplot(data=sample_matrix, color='red')
+  g = sns.scatterplot(data=sample_matrix, color='red', s=100)
 
   _ = g.set_xticklabels(reference_matrix.index, rotation=90)
   _ = g.set(xlabel='gene name', ylabel='log2(intensity)', title='Marker intensities in sample vs. reference population')
@@ -109,7 +108,10 @@ def main():
   """
   # Get user parameters
   parser = argparse.ArgumentParser(description="""Creates DIA boxplots
-  for TP-Viz processing.""")
+for TP-Viz processing.
+
+This script supports an arbitrary number of samples.
+""")
   args = get_arguments(parser)
 
   infile = args.infile

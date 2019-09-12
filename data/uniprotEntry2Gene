@@ -6593,7 +6593,7 @@ P15924	DESP_HUMAN	Desmoplakin (DP) (250/210 kDa paraneoplastic pemphigus antigen
 Q9H305	CDIP1_HUMAN	Cell death-inducing p53-target protein 1 (Cell death involved p53-target) (Cell death-inducing protein) (LITAF-like protein) (Lipopolysaccharide-induced tumor necrosis factor-alpha-like protein) (Transmembrane protein I1)	CDIP1|C16orf5|CDIP|LITAFL
 P32320	CDD_HUMAN	Cytidine deaminase (EC 3.5.4.5) (Cytidine aminohydrolase)	CDA|CDD
 Q96FF9	CDCA5_HUMAN	Sororin (Cell division cycle-associated protein 5) (p35)	CDCA5
-P42771	CDN2A_HUMAN	Cyclin-dependent kinase inhibitor 2A (Cyclin-dependent kinase 4 inhibitor A) (CDK4I) (Multiple tumor suppressor 1) (MTS-1) (p16-INK4a) (p16-INK4) (p16INK4A)	CDKN2A|CDKN2|MTS1
+P42771	CDN2A_HUMAN	Cyclin-dependent kinase inhibitor 2A (Cyclin-dependent kinase 4 inhibitor A) (CDK4I) (Multiple tumor suppressor 1) (MTS-1) (p16-INK4a) (p16-INK4) (p16INK4A)	CDKN2A_C|CDKN2|MTS1
 Q6ZTQ4	CDHR3_HUMAN	Cadherin-related family member 3 (Cadherin-like protein 28)	CDHR3|CDH28
 A4QMS7	CE049_HUMAN	Uncharacterized protein C5orf49	C5orf49
 A8MTT3	CEBOS_HUMAN	Protein CEBPZOS (CEBPZ antisense RNA 1) (CEBPZ opposite strand)	CEBPZOS|CEBPZ-AS1
@@ -12684,7 +12684,7 @@ P05090	APOD_HUMAN	Apolipoprotein D (Apo-D) (ApoD)	APOD
 P51693	APLP1_HUMAN	Amyloid-like protein 1 (APLP) (APLP-1) [Cleaved into: C30]	APLP1
 Q15041	AR6P1_HUMAN	ADP-ribosylation factor-like protein 6-interacting protein 1 (ARL-6-interacting protein 1) (Aip-1) (Apoptotic regulator in the membrane of the endoplasmic reticulum)	ARL6IP1|ARL6IP|ARMER|KIAA0069
 Q96P48	ARAP1_HUMAN	Arf-GAP with Rho-GAP domain, ANK repeat and PH domain-containing protein 1 (Centaurin-delta-2) (Cnt-d2)	ARAP1|CENTD2|KIAA0782
-Q8N726	ARF_HUMAN	Tumor suppressor ARF (Alternative reading frame) (ARF) (Cyclin-dependent kinase inhibitor 2A) (p14ARF)	CDKN2A|CDKN2|MLM
+Q8N726	ARF_HUMAN	Tumor suppressor ARF (Alternative reading frame) (ARF) (Cyclin-dependent kinase inhibitor 2A) (p14ARF)	CDKN2A_A|CDKN2|MLM
 P18085	ARF4_HUMAN	ADP-ribosylation factor 4	ARF4|ARF2
 Q8N4T4	ARG39_HUMAN	Rho guanine nucleotide exchange factor 39	ARHGEF39|C9orf100
 P40616	ARL1_HUMAN	ADP-ribosylation factor-like protein 1	ARL1

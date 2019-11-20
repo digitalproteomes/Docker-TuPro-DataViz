@@ -27,8 +27,8 @@ my_xmin <- round(min(case_sorted$log2fc, na.rm=T)) - 3
     
 pdf(paste0("barplot_", output_name, "_all_top100.pdf"))
 
-barplot(case_sorted$log2fc, names.arg=case_sorted$Gene, horiz=T, las=1, col=my_col, xlab="log2fc", xlim=c(my_xmin, my_xmax), cex.names=0.3, main=paste0(dim(case_filtered)[1], " proteins"))
-
+barplot(case_sorted$log2fc, names.arg=case_sorted$Gene, horiz=T, las=1, col=my_col, xlab="log2fc", xlim=c(my_xmin, my_xmax), cex.axis=0.1, cex.names=0.3, main=paste0(dim(case_filtered)[1], " proteins"))
+    
 abline(v=fc_threshold, lty=3)
 abline(v=-fc_threshold, lty=3)
 dev.off()
@@ -118,7 +118,7 @@ my_xmin <- round(min(markers_sorted$log2fc, na.rm=T)) - 1
     
 pdf(paste0(filename, "_barplot_marker.pdf"))
 
-barplot(markers_sorted$log2fc, names.arg=markers_sorted$Gene, horiz=T, las=1, col=my_col, xlab="log2FC", xlim=c(my_xmin, my_xmax), cex.names=0.8, main=paste0(dim(markers_sorted)[1], " marker proteins"))
+barplot(markers_sorted$log2fc, names.arg=markers_sorted$Gene, horiz=T, las=1, col=my_col, xlab="log2FC", xlim=c(my_xmin, my_xmax), cex.names=0.3, main=paste0(dim(markers_sorted)[1], " marker proteins"))
 abline(v=1, lty=3)
 abline(v=-1, lty=3)
 

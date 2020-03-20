@@ -139,7 +139,26 @@ def get_protein_with_proteotypic_evidence(peptide_infile, intensity_matrix):
   proteotypic_proteins = set(peptide_matrix['PG.ProteinAccessions'])
   intensity_matrix = intensity_matrix[intensity_matrix['PG.ProteinAccessions'].isin(proteotypic_proteins)]
   return intensity_matrix
+
+
+def zero_low_intensity(intensity_matrix, intensity_col_start,
+                       intensity_col_end, threshold=3):
+  """Set intensity values below threshold to NaNs
+
+  This is a very crude compensation to remove imputed values.
+
+  Args:
+  - intensity_col_start: the first column with ref/samples intensities
+  - intensity_col_end: the last column with ref/sample intensities
+  - threshold: the min intensity threshold
   
+  Returns:
+  intensity_matrix with values below threshold set as NaNs
+  """
+  for col in range(intensity_col_start, intensity_col_end+1):
+    intensity_matrix.iloc[:,col][intensity_matrix.iloc[:, col] < 3] = np.nan
+  return intensity_matrix
+
   
 def main():
   """Main
@@ -176,6 +195,9 @@ Creates 2 files:
   intensity_matrix = intensity_matrix[~(intensity_matrix['PG.ProteinAccessions'].str.contains('CONT') |
                                         (intensity_matrix['PG.ProteinAccessions'].str.contains('iRT')))]
   intensity_matrix = get_protein_with_proteotypic_evidence(pepfile, intensity_matrix)
+  intensity_matrix = zero_low_intensity(intensity_matrix,
+                                        min(ref_start, sample_start),
+                                        min(ref_end, sample_end))
   intensity_matrix.to_csv(outfile_root + '_cleaned.tsv', sep='\t', index=False, na_rep='NaN')
   intensity_matrix.set_index('PG.ProteinAccessions', inplace=True)
   intensity_matrix = map_genes(intensity_matrix, uniprot2genefile)

@@ -69,6 +69,7 @@ def process_samples(intensity_matrix, sample_start, sample_end, outfile_root):
   sample_matrix = intensity_matrix.iloc[:, sample_start:sample_end]
   print('Extracting samples:\n{}'.format(sample_matrix.columns))
   sample_matrix = np.log2(sample_matrix)
+  sample_matrix.fillna(0, inplace=True)
   print(sample_matrix.head())
   return sample_matrix
 

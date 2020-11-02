@@ -1,1 +1,2 @@
-# Dockerized TP scripts for data visualization
+# proteotyping
+Dockerized TP scripts for data visualization
